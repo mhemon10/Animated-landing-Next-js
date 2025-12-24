@@ -34,20 +34,36 @@ export default function UsarionHero() {
     mass: 0.9,
   });
 
-  const leftOpacity = useTransform(progress, [0, 0.35], [1, 0]);
-  const leftX = useTransform(progress, [0, 0.35], ["0%", "-15%"]);
+  // --- পরিবর্তন এখানে: Input range [0, 0.5, 1] ব্যবহার করা হয়েছে ---
+  // ০ থেকে ০.৫ পর্যন্ত এনিমেশন হবে, আবার ০.৫ থেকে ১ পর্যন্ত আগের জায়গায় ফিরে যাবে।
 
+  // Left Panel Opacity & Position
+  const leftOpacity = useTransform(progress, [0, 0.4, 0.6, 1], [1, 0, 0, 1]);
+  const leftX = useTransform(
+    progress,
+    [0, 0.4, 0.6, 1],
+    ["0%", "-15%", "-15%", "0%"]
+  );
+
+  // Right Panel Width & Radius
   const panelWidth = useTransform(
     progress,
-    [0, 0.15, 0.6],
-    ["40vw", "85vw", "100vw"]
+    [0, 0.25, 0.5, 0.75, 1],
+    ["40vw", "85vw", "100vw", "85vw", "40vw"]
   );
-  const panelRadius = useTransform(progress, [0, 0.5], ["28px", "0px"]);
+  const panelRadius = useTransform(
+    progress,
+    [0, 0.4, 0.6, 1],
+    ["28px", "0px", "0px", "28px"]
+  );
 
-  const imageRotate = useTransform(progress, [0, 0.6], [8, 0]);
-  const col1 = useTransform(progress, [0, 1], ["25%", "-75%"]);
-  const col2 = useTransform(progress, [0, 1], ["35%", "-85%"]);
-  const col3 = useTransform(progress, [0, 1], ["45%", "-95%"]);
+  // Image Animations
+  const imageRotate = useTransform(progress, [0, 0.5, 1], [8, 0, 8]);
+
+  // Columns scrolling animation
+  const col1 = useTransform(progress, [0, 0.5, 1], ["25%", "-75%", "25%"]);
+  const col2 = useTransform(progress, [0, 0.5, 1], ["35%", "-85%", "35%"]);
+  const col3 = useTransform(progress, [0, 0.5, 1], ["45%", "-95%", "45%"]);
 
   const cols = [[], [], []];
   images.forEach((img, idx) => {
@@ -55,8 +71,8 @@ export default function UsarionHero() {
   });
 
   return (
-    <section ref={containerRef} className="relative min-h-[450vh] bg-[#F8F9FA]">
-      <div className="sticky top-0 h-screen relative overflow-hidden">
+    <section ref={containerRef} className="relative min-h-[500vh] bg-[#F8F9FA]">
+      <div className="sticky top-0 h-screen overflow-hidden">
         {/* LEFT PANEL */}
         <motion.div
           style={{ opacity: leftOpacity, x: leftX }}
@@ -64,23 +80,20 @@ export default function UsarionHero() {
           <span className="text-sm text-gray-500 mb-4">
             ★★★★★ 5.0 Rating on Clutch
           </span>
-
           <h1 className="text-6xl font-bold leading-tight">
-            Usability & ROI Focused
+            Choose the flexible CRM for
             <span className="block mt-4 text-gray-500">
-              UI/UX Design Agency
+              fast-growing companies
             </span>
           </h1>
-
           <p className="mt-8 text-xl text-gray-600 max-w-md">
             Boost Business Growth with User-Centric UI/UX Design
           </p>
-
           <div className="mt-12 flex gap-4">
-            <button className="h-14 px-8 bg-black text-white rounded-full flex items-center gap-2 hover:bg-gray-900 transition-colors duration-300">
+            <button className="h-14 px-8 bg-black text-white rounded-full flex items-center gap-2 hover:bg-gray-900 transition-colors">
               Request free audit <ArrowUpRight size={18} />
             </button>
-            <button className="h-14 px-8 border border-black rounded-full flex items-center gap-2 hover:bg-black hover:text-white transition-colors duration-300">
+            <button className="h-14 px-8 border border-black rounded-full flex items-center gap-2 hover:bg-black hover:text-white transition-colors">
               Schedule a call <Calendar size={18} />
             </button>
           </div>
@@ -95,7 +108,6 @@ export default function UsarionHero() {
           }}
           className="absolute right-0 top-0 h-full bg-black overflow-hidden z-20">
           <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-gray-600 to-transparent z-30" />
-
           <div className="absolute inset-0 p-10">
             <div className="relative h-[150%] -top-[25%]">
               <motion.div
@@ -105,7 +117,6 @@ export default function UsarionHero() {
                   <ImageCard key={i} src={src} />
                 ))}
               </motion.div>
-
               <motion.div
                 style={{ y: col2, rotate: imageRotate }}
                 className="absolute left-1/3 w-1/3 px-3 space-y-6">
@@ -113,7 +124,6 @@ export default function UsarionHero() {
                   <ImageCard key={i} src={src} />
                 ))}
               </motion.div>
-
               <motion.div
                 style={{ y: col3, rotate: imageRotate }}
                 className="absolute left-2/3 w-1/3 px-3 space-y-6">
@@ -123,15 +133,12 @@ export default function UsarionHero() {
               </motion.div>
             </div>
           </div>
-
-          <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black via-black/60 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/60 to-transparent" />
-          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-black to-transparent" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black to-transparent" />
+          {/* Gradients */}
+          <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
         </motion.div>
       </div>
-
-      <div className="h-[250vh]" />
+      <div className="h-[400vh]" />
     </section>
   );
 }
@@ -139,26 +146,14 @@ export default function UsarionHero() {
 function ImageCard({ src }) {
   return (
     <motion.div
-      whileHover={{
-        scale: 1.05,
-        transition: { duration: 0.35, ease: "easeOut" },
-      }}
+      whileHover={{ scale: 1.05 }}
       className="relative aspect-square rounded-2xl overflow-hidden bg-gray-800 group cursor-pointer">
       <Image
         src={src}
         alt=""
         fill
         className="object-cover transition-transform duration-700 group-hover:scale-110"
-        sizes="(max-width: 768px) 33vw, 33vw"
       />
-
-      {/* HOVER OVERLAY */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
-        <div className="text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-          <div className="text-xs font-medium">Project</div>
-          <div className="text-sm font-bold">Case Study</div>
-        </div>
-      </div>
     </motion.div>
   );
 }
