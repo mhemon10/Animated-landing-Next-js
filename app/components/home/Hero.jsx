@@ -34,8 +34,7 @@ export default function UsarionHero() {
     mass: 0.9,
   });
 
-  // --- পরিবর্তন এখানে: Input range [0, 0.5, 1] ব্যবহার করা হয়েছে ---
-  // ০ থেকে ০.৫ পর্যন্ত এনিমেশন হবে, আবার ০.৫ থেকে ১ পর্যন্ত আগের জায়গায় ফিরে যাবে।
+ 
 
   // Left Panel Opacity & Position
   const leftOpacity = useTransform(progress, [0, 0.4, 0.6, 1], [1, 0, 0, 1]);
@@ -71,7 +70,7 @@ export default function UsarionHero() {
   });
 
   return (
-    <section ref={containerRef} className="relative min-h-[500vh] bg-[#F8F9FA]">
+    <section ref={containerRef} className="relative min-h-[500vh] bg-[#F8F9FA] mb-5">
       <div className="sticky top-0 h-screen overflow-hidden">
         {/* LEFT PANEL */}
         <motion.div
@@ -106,7 +105,7 @@ export default function UsarionHero() {
             borderTopLeftRadius: panelRadius,
             borderBottomLeftRadius: panelRadius,
           }}
-          className="absolute right-0 top-0 h-full bg-black overflow-hidden z-20">
+          className="absolute right-0 top-0 h-full bg-orange-300 overflow-hidden z-20 ">
           <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-gray-600 to-transparent z-30" />
           <div className="absolute inset-0 p-10">
             <div className="relative h-[150%] -top-[25%]">
